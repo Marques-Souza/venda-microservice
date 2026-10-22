@@ -1,0 +1,13 @@
+package com.vendas.cadastro_service;
+
+import org.junit.jupiter.api.Test;
+import org.springframework.boot.test.context.SpringBootTest;
+
+@SpringBootTest
+class CadastroServiceApplicationTests {
+
+	@Test
+	void contextLoads() {
+	}
+
+}
