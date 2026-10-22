@@ -1,6 +1,7 @@
 package com.vendas.cadastro_service.model;
 
 import jakarta.persistence.*;
+import lombok.AccessLevel;
 import lombok.Getter;
 import lombok.Setter;
 
@@ -24,4 +25,7 @@ public class Client {
 
     @Column(name = "phone", nullable = false, length = 20)
     private String phone;
+
+    @Column(name = "usuario_id", nullable = false, unique = true)
+    private UUID usuarioId;
 }
