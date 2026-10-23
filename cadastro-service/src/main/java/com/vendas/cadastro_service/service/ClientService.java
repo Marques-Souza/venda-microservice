@@ -35,4 +35,11 @@ public class ClientService {
         Client saved = clientRepository.save(client);
         return clientMapper.toResponse(saved);
     }
+
+    @Transactional(readOnly = true)
+    public ClientResponseDto findById(UUID id){
+        Client client = clientRepository.findById(id)
+                .orElseThrow(() -> new ClientAlreadyExistsException("Client not found."));
+        return  clientMapper.toResponse(client);
+    }
 }

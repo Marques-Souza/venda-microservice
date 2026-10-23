@@ -25,4 +25,10 @@ public class ClientController {
         ClientResponseDto respnse = clientService.create(dto, userId);
         return ResponseEntity.status(HttpStatus.CREATED).body(respnse);
     }
+
+    @GetMapping("/{id}")
+    public ResponseEntity<ClientResponseDto> findById(@PathVariable UUID id){
+        ClientResponseDto resposne = clientService.findById(id);
+        return ResponseEntity.ok(resposne);
+    }
 }
