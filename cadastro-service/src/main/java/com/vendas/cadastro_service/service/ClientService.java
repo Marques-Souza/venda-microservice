@@ -1,12 +1,16 @@
 package com.vendas.cadastro_service.service;
 
 import com.vendas.cadastro_service.dto.ClientRequestDto;
+import com.vendas.cadastro_service.dto.ClientRequestUpdateDto;
 import com.vendas.cadastro_service.dto.ClientResponseDto;
 import com.vendas.cadastro_service.exception.ClientAlreadyExistsException;
+import com.vendas.cadastro_service.exception.ClientNotFoundException;
 import com.vendas.cadastro_service.mapper.ClientMapper;
 import com.vendas.cadastro_service.model.Client;
 import com.vendas.cadastro_service.repository.ClientRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -39,7 +43,28 @@ public class ClientService {
     @Transactional(readOnly = true)
     public ClientResponseDto findById(UUID id){
         Client client = clientRepository.findById(id)
-                .orElseThrow(() -> new ClientAlreadyExistsException("Client not found."));
+                .orElseThrow(() -> new ClientNotFoundException("Client not found."));
         return  clientMapper.toResponse(client);
+    }
+
+    @Transactional(readOnly = true)
+    public Page<ClientResponseDto> findAll(String search, Pageable pageable){
+        Page<Client> clients = clientRepository.findAll(pageable);
+
+        if (search != null && !search.isBlank()){
+            clients = clientRepository.findBySearch(search, pageable);
+        }
+        return clients.map(clientMapper::toResponse);
+
+    }
+
+    @Transactional
+    public ClientResponseDto update(UUID id, ClientRequestUpdateDto dto, UUID userId){
+        Client client = clientRepository.findByIdAndUserId(id,  userId)
+                .orElseThrow(() -> new ClientNotFoundException("Client not found."));
+        clientMapper.updateEntity(dto, client);
+        Client saved = clientRepository.save(client);
+        return  clientMapper.toResponse(saved);
+
     }
 }

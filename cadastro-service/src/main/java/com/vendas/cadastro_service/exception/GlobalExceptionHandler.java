@@ -15,4 +15,14 @@ public class GlobalExceptionHandler {
         problem.setTitle("Client already exists.");
         return problem;
     }
+
+    @ExceptionHandler(ClientNotFoundException.class)
+    public ProblemDetail handlerNotFound(ClientNotFoundException ex){
+        ProblemDetail problem = ProblemDetail.forStatusAndDetail(
+                HttpStatus.NOT_FOUND, ex.getMessage());
+        problem.setTitle("Client not found.");
+        return problem;
+    }
+
+
 }
