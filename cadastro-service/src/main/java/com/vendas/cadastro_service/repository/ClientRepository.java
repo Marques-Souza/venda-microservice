@@ -8,6 +8,6 @@ import java.util.UUID;
 public interface ClientRepository extends JpaRepository<Client, UUID> {
 
     boolean existsByCpf(String cpf);
-    boolean existsByUsuarioId(UUID usuarioId);
+    boolean existsByUserId(UUID userId);
     boolean existsByCpfAndIdNot(String cpf, UUID id);
 }

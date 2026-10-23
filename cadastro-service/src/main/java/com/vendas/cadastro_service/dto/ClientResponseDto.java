@@ -8,7 +8,7 @@ public record ClientResponseDto(
         String name,
         String cpf,
         String phone,
-        UUID usuarioId
+        UUID userId
 
 ) {
 }

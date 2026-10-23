@@ -10,7 +10,7 @@ import org.mapstruct.*;
 public interface ClientMapper {
 
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "usuarioId", ignore = true)
+    @Mapping(target = "userId", ignore = true)
     Client toEntity(ClientRequestDto dto);
 
     ClientResponseDto toResponse(Client client);
@@ -18,7 +18,7 @@ public interface ClientMapper {
 
     @BeanMapping(nullValuePropertyMappingStrategy = NullValuePropertyMappingStrategy.IGNORE)
     @Mapping(target = "id", ignore = true)
-    @Mapping(target = "usuarioId", ignore = true)
+    @Mapping(target = "userId", ignore = true)
     @Mapping(target = "cpf", ignore = true)
     void updateEntity(ClientRequestUpdateDto dto, @MappingTarget Client client);
 }

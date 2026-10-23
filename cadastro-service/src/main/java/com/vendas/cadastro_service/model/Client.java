@@ -26,6 +26,6 @@ public class Client {
     @Column(name = "phone", nullable = false, length = 20)
     private String phone;
 
-    @Column(name = "usuario_id", nullable = false, unique = true)
-    private UUID usuarioId;
+    @Column(name = "user_id", nullable = false, unique = true)
+    private UUID userId;
 }
